@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap = "http://phonegap.com/ns/1.0" id="ch.fhnw.bscwi.esae.MobileApp" version="1.0.0">
+    <name>MobileApp</name>
+    <description>
+        A sample Apache Cordova application.
+    </description>
+    <author email="andreas.martin@andreasmartin.ch" href="http://andreasmartin.ch">
+        Andreas Martin
+    </author>
+    <preference name="phonegap-version" value="3.4.0" />
+    <content src="index.html"/>
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.contacts" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <access origin="*"/>
+</widget>

@@ -45,7 +45,7 @@ There is usually a strange behaviour when using the app on iOS devise - called c
 
 1. "In index.html, add the following script tag":
 ```html 
-<script src="lib/fastclick.js"></script>
+<script src="js/libs/fastclick/fastclick.js"></script>
 ```
 
 "FastClick is an open source library built by the Financial Times. More information this [here](https://github.com/ftlabs/fastclick).."
