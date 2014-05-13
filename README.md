@@ -205,9 +205,107 @@ var HomeView = function (adapter, template, listItemTemplate) {
 ## Step 6: Implementing Native Scrolling
 If you shrink your browser, you will notice that the entire view (including the header) is scrolling. Now we are going to anchor the header.
 1. In the index.html (home-tpl), add a css class named scroller to the div surrounding the employee list ul. 
-```javascript
+```html
             <div class="topcoat-list__container scroller">
                 <ul class="topcoat-list list employee-list" style="overflow: visible"></ul>
             </div>
 ```
 2. Check if everything works properly.
+
+## Step 7: View Routing
+Now we are going to add an employee details view.
+
+### Step 7.1: Create the employee template
+"Open index.html and add a template to render a detailed employee view:"
+```html
+        <script id="employee-tpl" type="text/x-handlebars-template">
+            <div class="topcoat-navigation-bar">
+                <div class="topcoat-navigation-bar__item left quarter">
+                    <a class="topcoat-icon-button--quiet back-button" href="#">
+                        <span class="topcoat-icon topcoat-icon--back"></span>
+                    </a>
+                </div>
+                <div class="topcoat-navigation-bar__item center half">
+                    <h1 class="topcoat-navigation-bar__title">Employee</h1>
+                </div>
+            </div>
+            <div class='details'>
+                <img src="assets/pics/{{pic}}" class="employee-image">
+                <h1>{{firstName}} {{lastName}}</h1>
+                <h2>{{title}}</h2>
+                <h2>{{city}}</h2>
+                <div class="topcoat-list__container scroller">
+                    <ul class="topcoat-list list actions">
+                        {{#if managerId}}
+                        <li class="topcoat-list__item"><a href="#employees/{{managerId}}"><p>View Manager</p><p>{{managerName}}</p><div class="action-icon icon-manager"/></a></li>
+                        {{/if}}
+                        <li class="topcoat-list__item"><a href="tel:{{officePhone}}"><p>Call Office</p><p>{{officePhone}}</p><div class="action-icon icon-call"/></a></li>
+                        <li class="topcoat-list__item"><a href="tel:{{cellPhone}}"><p>Call Cell</p><p>{{cellPhone}}</p><div class="action-icon icon-call"/></a></li>
+                        <li class="topcoat-list__item"><a href="sms:{{cellPhone}}"><p>SMS</p><p>{{cellPhone}}</p><div class="action-icon icon-sms"/></a></li>
+                        <li class="topcoat-list__item"><a href="mailto:{{email}}"><p>Email</p><p>{{email}}</p><div class="action-icon icon-mail"/></a></li>
+                    </ul>
+                </div>
+            </div>
+        </script>
+```
+
+### Step 7.2: Create an EmployeeView class
+1. "Create a file named EmployeeView.js in the js directory, and define an EmployeeView constructor implemented as follows: "
+```javascript
+var EmployeeView = function(adapter, template, employee) {
+ 
+    this.initialize = function() {
+        this.el = $('<div/>');
+    };
+    
+    this.initialize();
+ 
+};
+```
+2. "Define a render() function implemented as follows: "
+```javascript
+    this.render = function() {
+        this.el.html(template(employee));
+        return this;
+    };
+```
+3. "In index.html, add a script tag to include EmployeeView.js (just before the script tag for index.js): "
+```html
+<script src="js/EmployeeView.js"></script>
+```
+
+### Step 7.3: Implement View Routing
+1. "Open index.js. In the Local Variables section, declare a variable named employeeTpl that holds the compiled template for the employee details view: "
+```javascript
+var employeeTpl = Handlebars.compile($("#employee-tpl").html());
+```
+2. "In the Local Variables section, declare a variable named detailsURL that holds a regular expression to match employee details URLs. "
+3. "In the Event Registration section, add an event listener to listen to URL hash tag changes: "
+```javascript
+var employeeTpl = Handlebars.compile($("#employee-tpl").html());
+```
+4. "In the Local Functions section, define a route() function to route requests to the appropriate view:"
+	1. "If there is no hash tag in the URL, display the HomeView"
+	2. "If there is a hash tag matching the pattern for an employee details URL, display an EmployeeView for the specified employee."
+```javascript
+function route() {
+    var hash = window.location.hash;
+    if (!hash) {
+        $('body').html(new HomeView(adapter, homeTpl, employeeLiTpl).render().el);
+        return;
+    }
+    var match = hash.match(detailsURL);
+    if (match) {
+        adapter.findById(Number(match[1])).done(function(employee) {
+            $('body').html(new EmployeeView(adapter, employeeTpl, employee).render().el);
+        });
+    }
+}
+```
+5. "Modify the adapter initialization logic to call the route() function when the adapter has been successfully initialized: "
+```javascript
+adapter.initialize().done(function () {
+    route();
+});
+```
+6. Check if everything works properly.
