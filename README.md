@@ -90,6 +90,7 @@ var adapter = new JSONPAdapterFHNW();
 
 "In this section, we create two templates to streamline the code of the Employee Directory application. We use Handlebars.js but the same result can be achieved using the other HTML template solutions."
 
+### Step 4.1
 "Modify index.html as follows:"
 
 1. "Add a script tag to include the handlebars.js library: "
@@ -131,14 +132,14 @@ var adapter = new JSONPAdapterFHNW();
 ```html
 <link href="js/libs/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
 ```
-
+### Step 4.2
 Modify the immediate function in index.js as follows:
 
 1. "Immediately before the adapter variable declaration, declare two variables that hold the compiled version of the templates defined above: "
 ```javascript
 	var homeTpl = Handlebars.compile($("#home-tpl").html());
     var employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
-```javascript
+```
 2. "Modify renderHomeView() to use the homeTpl template instead of the inline HTML: "
 ```javascript
 function renderHomeView() {
@@ -155,3 +156,49 @@ function findByName() {
 }
 ```
 4. Check if everything works properly.
+
+## Step 5: Creating a View Class
+To provide the app some structure we are going to create a HomeView object that encapsulates the logic to create and render the Home view.
+
+### Step 5.1: Create the HomeView Class
+1. "Create a file named HomeView.js in the js directory, and define a HomeView constructor implemented as follows:"
+```javascript
+var HomeView = function (adapter, template, listItemTemplate) {
+ 
+    this.initialize = function () {
+        // Define a div wrapper for the view. The div wrapper is used to attach events.
+        this.el = $('<div/>');
+        this.el.on('keyup', '.search-key', this.findByName);
+    };
+ 
+    this.initialize();
+ 
+};
+```
+2. Remove the renderHomeView() function from index.js
+3. Add the renderHomeView() to HomeView.js and rename it as follows:
+```javascript
+    this.render = function() {
+        this.el.html(template());
+        return this;
+    };
+```
+4. Move the findByName() function from index.js to HomeView.js:
+```javascript
+    this.findByName = function() {
+        adapter.findByName($('.search-key').val()).done(function(employees) {
+            $('.employee-list').html(listItemTemplate(employees));
+        });
+    };
+```
+
+### Step 5.2: Using the Home View
+1. "In index.html, add a script tag to include HomeView.js (just before the script tag for index.js)":
+2. "Pass the adapter, the Home View template, and the employee list item template as arguments to the Home View constructor:"
+```javascript
+    adapter.initialize().done(function() {
+        $('body').html(new HomeView(adapter, homeTpl, employeeLiTpl).render().el);
+    });
+```
+3. Check if everything works properly.
+
