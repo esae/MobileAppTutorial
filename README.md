@@ -109,7 +109,7 @@ var adapter = new JSONPAdapterFHNW();
                 <input type="search" placeholder="search" class="topcoat-search-input search-key">
             </div>
             <div class="topcoat-list__container">
-                <ul class="topcoat-list list employee-list"></ul>
+                <ul class="topcoat-list list employee-list" style="overflow: visible"></ul>
             </div>
         </script>
 ```
@@ -201,4 +201,6 @@ var HomeView = function (adapter, template, listItemTemplate) {
     });
 ```
 3. Check if everything works properly.
+
+## Step 6: Implementing Native Scrolling
 
