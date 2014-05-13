@@ -203,4 +203,11 @@ var HomeView = function (adapter, template, listItemTemplate) {
 3. Check if everything works properly.
 
 ## Step 6: Implementing Native Scrolling
-
+If you shrink your browser, you will notice that the entire view (including the header) is scrolling. Now we are going to anchor the header.
+1. In the index.html (home-tpl), add a css class named scroller to the div surrounding the employee list ul. 
+```javascript
+            <div class="topcoat-list__container scroller">
+                <ul class="topcoat-list list employee-list" style="overflow: visible"></ul>
+            </div>
+```
+2. Check if everything works properly.
