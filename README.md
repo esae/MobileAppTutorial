@@ -1,5 +1,5 @@
 # Welcome to the Mobile App Tutorial
-_This is modified version of the Cordova / PhoneGap Tutorial by Christophe Coenraets (http://coenraets.org/blog/cordova-phonegap-3-tutorial/) as step by step showcase for our students @ FHNW._
+_This is modified version of the Cordova / PhoneGap Tutorial by Christophe Coenraets (http://coenraets.org/blog/cordova-phonegap-3-tutorial/) as step by step showcase for our students @ FHNW. Original text is marked using direct quotation ""_
 
 ## Requirements
 * NetBeans IDE, Java - 8.0
@@ -84,3 +84,74 @@ var adapter = new JSONPAdapterFHNW();
 
 4. "Since you moved the registration of the keyup event inside the renderHomeView() function, make sure you remove the original event registration in the Event Registration section."
 5. Check if everything works properly.
+
+## Step 4: Using Handlebars Templates
+"Writing HTML fragments in JavaScript and programmatically inserting them into the DOM is tedious. It makes your application harder to write and harder to maintain. HTML templates address this issue by decoupling the UI definition (HTML markup) from your code. There are a number of great HTML template solutions, including Mustache.js, Handlebars.js, and Underscore.js to name a few."
+
+"In this section, we create two templates to streamline the code of the Employee Directory application. We use Handlebars.js but the same result can be achieved using the other HTML template solutions."
+
+"Modify index.html as follows:"
+
+1. "Add a script tag to include the handlebars.js library: "
+```javascript
+<script src="js/libs/handlebars.js/handlebars.min.js"></script>
+```
+2. "Create an HTML template to render the Home View. Add this script tag as the first child of the body tag:"
+```javascript
+        <script id="home-tpl" type="text/x-handlebars-template">
+            <div class="topcoat-navigation-bar">
+                <div class="topcoat-navigation-bar__item center full">
+                    <h1 class="topcoat-navigation-bar__title">Employee Directory</h1>
+                </div>
+            </div>
+            <div class="search-bar">
+                <input type="search" placeholder="search" class="topcoat-search-input search-key">
+            </div>
+            <div class="topcoat-list__container">
+                <ul class="topcoat-list list employee-list"></ul>
+            </div>
+        </script>
+```
+3. "Create an HTML template to render the employee list items. Add this script tag immediately after the previous one:"
+```javascript
+        <script id="employee-li-tpl" type="text/x-handlebars-template">
+            {{#.}}
+            <li class="topcoat-list__item">
+                <a href="#employees/{{id}}">
+                    <img src="assets/pics/{{pic}}">
+                    <p>{{firstName}} {{lastName}}</p>
+                    <p>{{title}}</p>
+                    <span class="chevron"></span><span class="count">{{reports}}</span>
+                </a>
+            </li>
+            {{/.}}
+        </script>
+```
+4. Add topcoat-mobile-light.css to the head of index.html
+```html
+<link href="js/libs/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
+```
+
+Modify the immediate function in index.js as follows:
+
+1. "Immediately before the adapter variable declaration, declare two variables that hold the compiled version of the templates defined above: "
+```javascript
+	var homeTpl = Handlebars.compile($("#home-tpl").html());
+    var employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
+```javascript
+2. "Modify renderHomeView() to use the homeTpl template instead of the inline HTML: "
+```javascript
+function renderHomeView() {
+    $('body').html(homeTpl());
+    $('.search-key').on('keyup', findByName);
+}
+```
+3. "Modify findByName() to use the employeeLiTpl template instead of the inline HTML:"
+```javascript
+function findByName() {
+    adapter.findByName($('.search-key').val()).done(function (employees) {
+        $('.employee-list').html(employeeLiTpl(employees));
+    });
+}
+```
+4. Check if everything works properly.
