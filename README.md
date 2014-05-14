@@ -21,7 +21,7 @@ You will perform most of the following steps in this exercise in your terminal w
 `node -v` _If node.js is installed you will see a version printed in the terminal window._
 4. Run the following command to install Cordova.
 `npm install -g cordova`
-5. Run the following command to confirm that Cordova is installed and to view the version.
+5. Run the following command to confirm that Cordova is installed and to view the version: `cordova --version`
 _If Cordova is installed you will see a version printed in the terminal window._
 
 You now have all the tools that you need to develop and package a native mobile application in the IDE. 
