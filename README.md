@@ -6,7 +6,7 @@ _This is modified version of the Cordova / PhoneGap Tutorial by Christophe Coenr
 * Java Development Kit (JDK) - version 7
 * Apache Cordova
 * NodeJS
-* Git
+* [Adobe® PhoneGap™ Build](https://build.phonegap.com) registration
 
 ## Installing Cordova
 _This following section is a modified version of: https://netbeans.org/kb/docs/webclient/cordova-gettingstarted.html_
@@ -23,6 +23,7 @@ You will perform most of the following steps in this exercise in your terminal w
 `npm install -g cordova`
 5. Run the following command to confirm that Cordova is installed and to view the version: `cordova --version`
 _If Cordova is installed you will see a version printed in the terminal window._
+6. Register on [Adobe® PhoneGap™ Build](https://build.phonegap.com) using an Adobe ID (free registration required).
 
 You now have all the tools that you need to develop and package a native mobile application in the IDE. 
 
@@ -309,3 +310,4 @@ adapter.initialize().done(function () {
 });
 ```
 6. Check if everything works properly.
+7. Finally create a Zip file of your project files and upload the ZIP to the [Adobe® PhoneGap™ Build](https://build.phonegap.com) platform. 
