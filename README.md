@@ -309,5 +309,9 @@ adapter.initialize().done(function () {
     route();
 });
 ```
+
+``` javascript
+$(window).on('hashchange', route);
+```
 6. Check if everything works properly.
 7. Finally create a Zip file of your project files and upload the ZIP to the [Adobe® PhoneGap™ Build](https://build.phonegap.com) platform. 
