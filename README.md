@@ -192,6 +192,10 @@ var HomeView = function (adapter, template, listItemTemplate) {
         });
     };
 ```
+5. Add the newly crated HomeView.js to the index.html
+``` javascript
+<script src="js/HomeView.js"></script>
+```
 
 ### Step 5.2: Using the Home View
 1. "In index.html, add a script tag to include HomeView.js (just before the script tag for index.js)":
