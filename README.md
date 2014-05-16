@@ -283,7 +283,7 @@ var employeeTpl = Handlebars.compile($("#employee-tpl").html());
 2. "In the Local Variables section, declare a variable named detailsURL that holds a regular expression to match employee details URLs. "
 3. "In the Event Registration section, add an event listener to listen to URL hash tag changes: "
 ```javascript
-var employeeTpl = Handlebars.compile($("#employee-tpl").html());
+var detailsURL = /^#employees\/(\d{1,})/;
 ```
 4. "In the Local Functions section, define a route() function to route requests to the appropriate view:"
 	1. "If there is no hash tag in the URL, display the HomeView"
