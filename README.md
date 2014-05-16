@@ -13,7 +13,7 @@ _This following section is a modified version of: https://netbeans.org/kb/docs/w
 
 You need to install Cordova on your local system to package an HTML5 application as a native mobile application with NetBeans IDE. You will use npm, the NodeJS package manager, to install and to update Cordova. 
 
-You will perform most of the following steps in this exercise in your terminal window.
+You will perform most of the following six steps in this exercise in your terminal window.
 
 1. Download and install Node.js, if not already installed. You can download the installer from the [Node.js site](http://nodejs.org/).
 2. Open a terminal window.
